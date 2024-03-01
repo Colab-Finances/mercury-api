@@ -34,5 +34,5 @@ class UserRegistrator:
             raise EmailAlreadyUsed(email)
 
         user = User.register(id, email, name, last_name, pronoun, password)
-        await self._repository.create(user)
+        await self._repository.save(user)
         await self._event_bus.publish(*user.pull_domain_events())

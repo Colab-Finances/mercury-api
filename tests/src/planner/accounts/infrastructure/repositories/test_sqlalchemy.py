@@ -25,7 +25,7 @@ class TestSqlAlchemyAccountRepository:
         self, sqlalchemy_sessionmaker: type[AsyncSession]
     ):
         repository = SqlAlchemyAccountRepository(sqlalchemy_sessionmaker)
-        await di[UserRepository].create(self.user)  # type:ignore [type-abstract]
+        await di[UserRepository].save(self.user)  # type:ignore [type-abstract]
 
         await repository.save(self.account)
 
@@ -33,7 +33,7 @@ class TestSqlAlchemyAccountRepository:
         self, sqlalchemy_sessionmaker: type[AsyncSession]
     ):
         repository = SqlAlchemyAccountRepository(sqlalchemy_sessionmaker)
-        await di[UserRepository].create(self.user)  # type:ignore [type-abstract]
+        await di[UserRepository].save(self.user)  # type:ignore [type-abstract]
 
         await repository.save(self.account)
         await repository.save(self.account)
@@ -60,7 +60,7 @@ class TestSqlAlchemyAccountRepository:
         self, sqlalchemy_sessionmaker: type[AsyncSession]
     ):
         repository = SqlAlchemyAccountRepository(sqlalchemy_sessionmaker)
-        await di[UserRepository].create(self.user)  # type:ignore [type-abstract]
+        await di[UserRepository].save(self.user)  # type:ignore [type-abstract]
 
         await repository.save(self.account)
         perssisted_account = await repository.search_by_name_and_owner_id(
@@ -72,7 +72,7 @@ class TestSqlAlchemyAccountRepository:
         self, sqlalchemy_sessionmaker: type[AsyncSession]
     ):
         repository = SqlAlchemyAccountRepository(sqlalchemy_sessionmaker)
-        await di[UserRepository].create(self.user)  # type:ignore [type-abstract]
+        await di[UserRepository].save(self.user)  # type:ignore [type-abstract]
 
         await repository.save(self.account)
         perssisted_account = await repository.search_by_id_and_owner_id(

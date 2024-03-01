@@ -1,4 +1,4 @@
-from typing import Annotated
+from typing import Annotated, cast
 
 from fastapi import Depends, File
 from kink import di
@@ -33,13 +33,16 @@ async def find(
     find_user_query = FindUserQuery(id=id, user_id=auth_token.user_id)  # type: ignore[union-attr]
     return await query_bus.ask(find_user_query)  # type: ignore[return-value]
 
+
 async def update_avatar(
     id: str,
-    avatar: Annotated[bytes | None, File()],
+    avatar: Annotated[bytes, File()],
     access_token: Annotated[str, Depends(oauth2_scheme)],
     command_bus: Annotated[CommandBus, Depends(lambda: di[CommandBus])],
-    query_bus: Annotated[QueryBus, Depends(lambda: di[QueryBus])]
+    query_bus: Annotated[QueryBus, Depends(lambda: di[QueryBus])],
 ):
     auth_token = await query_bus.ask(FindAuthTokenQuery(access_token=access_token))
+    # TODO: Add Response to all of Queries
+    auth_token = cast(FindAuthTokenQuery.Response, auth_token)
     command = UpdateUserAvatarCommand(id=id, avatar=avatar, user_id=auth_token.user_id)
     await command_bus.dispatch(command)

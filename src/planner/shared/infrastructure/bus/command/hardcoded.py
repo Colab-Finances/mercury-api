@@ -29,7 +29,9 @@ from src.planner.users.application.register.command_handler import (
     RegisterUserCommandHandler,
 )
 from src.planner.users.application.update_avatar.command import UpdateUserAvatarCommand
-from src.planner.users.application.update_avatar.command_handler import UpdateUserAvatarCommandHandler
+from src.planner.users.application.update_avatar.command_handler import (
+    UpdateUserAvatarCommandHandler,
+)
 
 
 @inject(alias=CommandBus)

@@ -4,6 +4,7 @@ from src.planner.shared.domain.aggregates import AggregateRoot, aggregate_datacl
 from src.planner.shared.domain.users import UserId
 from src.planner.shared.domain.users.events import UserRegistered
 from src.planner.users.domain.value_objects import (
+    UserAvatar,
     UserCreatedAt,
     UserEmail,
     UserIsActive,
@@ -11,7 +12,6 @@ from src.planner.users.domain.value_objects import (
     UserName,
     UserPassword,
     UserPronoun,
-    UserAvatar
 )
 
 
@@ -62,7 +62,7 @@ class User(AggregateRoot):
         return user
 
     async def update_avatar(self, avatar: UserAvatar) -> None:
-        # TODO: Add UserAvatarUpdated 
+        # TODO: Add UserAvatarUpdated
         # self._record_event(
         #     UserAvatarUpdated.make(
         #         self.id.primitive,

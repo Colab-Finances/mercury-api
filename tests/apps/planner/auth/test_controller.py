@@ -19,7 +19,7 @@ async def test_success_login(
 ) -> None:
     password = fake.password()
     user = UserFactory.build(password=password)
-    await di[UserRepository].create(user)  # type:ignore [type-abstract]
+    await di[UserRepository].save(user)  # type:ignore [type-abstract]
     params = {
         "username": user.email.value,
         "password": password,

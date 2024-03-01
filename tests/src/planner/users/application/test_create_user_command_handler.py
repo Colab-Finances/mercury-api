@@ -42,7 +42,7 @@ class TestCreateUserCommandHandler:
         )
         await self.handler(command)
 
-        self._repository.create.assert_called_once_with(user)
+        self._repository.save.assert_called_once_with(user)
         self._event_bus.publish.assert_called_once_with(user_registered)
 
     async def test_should_raise_error_email_already_exists(self) -> None:

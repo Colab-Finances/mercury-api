@@ -42,7 +42,7 @@ class TestAddTransferMovementController:
         sqlalchemy_sessionmaker: type[AsyncSession],
         motor_database: AgnosticDatabase,
     ) -> None:
-        await di[UserRepository].create(self._user)  # type: ignore[type-abstract]
+        await di[UserRepository].save(self._user)  # type: ignore[type-abstract]
         await di[AccountRepository].save(self._origin)  # type: ignore[type-abstract]
         await di[AccountRepository].save(self._destination)  # type: ignore[type-abstract]
         # TODO: Use Factory to create Account

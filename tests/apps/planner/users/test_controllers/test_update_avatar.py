@@ -23,21 +23,33 @@ class TestUpdateUserAvatarController:
     async def test_success(
         self, client: AsyncClient, sqlalchemy_sessionmaker: type[AsyncSession]
     ) -> None:
-        await di[UserRepository].create(self._user)  # type: ignore[type-abstract]
+        await di[UserRepository].save(self._user)  # type: ignore[type-abstract]
 
         response = await client.put(
             self._url,
             auth=AuthAsUser(self._user.id),
-            files={"avatar": ("sample.jpg", open('tests/fixtures/files/sample.jpg', "rb"), "image/jpeg")}
+            files={
+                "avatar": (
+                    "sample.jpg",
+                    open("tests/fixtures/files/sample.jpg", "rb"),
+                    "image/jpeg",
+                )
+            },
         )
 
         assert response.status_code == status.HTTP_200_OK, response.text
-        assert response.json() == None
+        assert response.json() is None
 
     async def test_should_return_unauthorized_missing_token(
         self, client: AsyncClient, sqlalchemy_sessionmaker: type[AsyncSession]
     ) -> None:
-        response = await client.put(self._url)
+        response = await client.put(self._url, files={
+                "avatar": (
+                    "sample.jpg",
+                    open("tests/fixtures/files/sample.jpg", "rb"),
+                    "image/jpeg",
+                )
+            })
 
         assert response.status_code == status.HTTP_401_UNAUTHORIZED, response.text
 

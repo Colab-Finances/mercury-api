@@ -42,15 +42,19 @@ from src.planner.shared.infrastructure.persistence.motor.db import database
 from src.planner.shared.infrastructure.persistence.sqlalchemy.session import (
     SqlAlchemySession,
 )
+from src.planner.users.infrastructure.mime_guessers.magic import (  # noqa: F401
+    MagicMimeGuesser,
+)
 from src.planner.users.infrastructure.repositories.sqlalchemy import (  # noqa: F401
     SqlAlchemyUserRepository,
+)
+from src.planner.users.infrastructure.storages.local import (  # noqa: F401
+    LocalUserFileStorage,
 )
 from src.shared.domain.bus.event.domain_event_susbcriber import DomainEventSubscriber
 from src.shared.infrastructure.bus.event.in_memory.event_bus import (  # noqa: F401
     InMemoryEventBus,
 )
-from src.planner.users.infrastructure.storages.local import LocalUserFileStorage  # noqa: F401
-from src.planner.users.infrastructure.mime_guessers.magic import MagicMimeGuesser  # noqa: F401
 
 
 def search_subscribers() -> Set[type[DomainEventSubscriber]]:

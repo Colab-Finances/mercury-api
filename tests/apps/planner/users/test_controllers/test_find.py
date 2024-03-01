@@ -35,7 +35,7 @@ class TestFindController:
     async def test_success(
         self, client: AsyncClient, sqlalchemy_sessionmaker: type[AsyncSession]
     ) -> None:
-        await di[UserRepository].create(self._user)  # type: ignore[type-abstract]
+        await di[UserRepository].save(self._user)  # type: ignore[type-abstract]
 
         response = await client.get(
             f"{settings.API_PREFIX}/v1/users/{self._user.id.primitive}",

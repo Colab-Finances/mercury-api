@@ -30,7 +30,7 @@ class TestSqlAlchemyMovementRepository:
         self, sqlalchemy_sessionmaker: type[AsyncSession]
     ):
         repository = SqlAlchemyMovementRepository(sqlalchemy_sessionmaker)
-        await di[UserRepository].create(self.user)  # type:ignore [type-abstract]
+        await di[UserRepository].save(self.user)  # type:ignore [type-abstract]
         await di[AccountRepository].save(self.account)  # type:ignore [type-abstract]
 
         await repository.save(self.expense)
@@ -46,7 +46,7 @@ class TestSqlAlchemyMovementRepository:
         self, sqlalchemy_sessionmaker: type[AsyncSession]
     ):
         repository = SqlAlchemyMovementRepository(sqlalchemy_sessionmaker)
-        await di[UserRepository].create(self.user)  # type:ignore [type-abstract]
+        await di[UserRepository].save(self.user)  # type:ignore [type-abstract]
         await di[AccountRepository].save(self.account)  # type:ignore [type-abstract]
 
         await repository.save(self.expense)
