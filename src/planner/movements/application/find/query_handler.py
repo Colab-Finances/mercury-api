@@ -16,6 +16,6 @@ class FindMovementQueryHandler:
 
     async def __call__(self, query: FindMovementQuery) -> MovementResponse:
         movement = await self.use_case(
-            id=MovementId(query.id), owner_id=UserId(query.owner_id)
+            id=MovementId(query.id), account_owner_id=UserId(query.account_owner_id)
         )
         return entity_to_response(movement)

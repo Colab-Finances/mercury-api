@@ -12,9 +12,9 @@ class MovementFinder:
     def __init__(self, repository: MovementRepository):
         self._repository = repository
 
-    async def __call__(self, id: MovementId, owner_id: UserId) -> Movement:
+    async def __call__(self, id: MovementId, account_owner_id: UserId) -> Movement:
         movement = await self._repository.search(id)
-        if not movement or movement.account.owner_id != owner_id:
+        if not movement or movement.account_owner_id != account_owner_id:
             raise MovementNotFound
 
         return movement
