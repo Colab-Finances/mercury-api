@@ -26,7 +26,6 @@ pytestmark = pytest.mark.anyio
 
 class TestFindMovementQueryHandler:
     def setup_method(self) -> None:
-        # Mocks
         self._repository = Mock(spec=MovementRepository)
 
         use_case = MovementFinder(self._repository)
@@ -35,7 +34,8 @@ class TestFindMovementQueryHandler:
     async def test_should_return_an_expense(self) -> None:
         expense = ExpenseMovementFactory.build()
         query = FindMovementQuery(
-            account_owner_id=expense.account_owner_id.primitive, id=expense.id.primitive
+            account_owner_id=expense.account_owner_id.primitive,
+            id=expense.id.primitive,
         )
 
         self._repository.search.return_value = expense
