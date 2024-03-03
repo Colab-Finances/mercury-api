@@ -42,7 +42,8 @@ class TestAddExpenseMovementCommandHandler:
         # Arrange
         self.account = AccountFactory.build()
         self.params = ExpenseMovementFactory(
-            account_id=self.account.id.primitive
+            account_id=self.account.id.primitive,
+            account_owner_id=self.account.owner_id.primitive,
         ).to_dict()
         self.expense = ExpenseMovementFactory.build(**self.params)
 
@@ -62,6 +63,7 @@ class TestAddExpenseMovementCommandHandler:
             account_id=self.expense.account_id.primitive,
             amount=self.expense.amount.primitive,
             date=self.expense.date.primitive,
+            account_owner_id=self.expense.account_owner_id.primitive,
         )
 
         await self.handler(command)

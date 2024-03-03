@@ -41,6 +41,6 @@ class TransferMovementAdder:
             self._auth_service.ensure_user_is_account_owner(destination_id, user_id),
         ]
         await gather(*coros)
-        expense = TransferMovement.add(id, amount, origin_id, destination_id, date)
+        expense = TransferMovement.add(id, amount, origin_id, destination_id, date, user_id)
         await self._repository.save(expense)
         await self._event_bus.publish(*expense.pull_domain_events())

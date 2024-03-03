@@ -9,6 +9,7 @@ class TransferMovementAdded(DomainEvent):
     amount: int
     origin_id: str
     destination_id: str
+    account_owner_id: str
 
     @staticmethod
     def event_name() -> str:
@@ -20,4 +21,5 @@ class TransferMovementAdded(DomainEvent):
             "amount": self.amount,
             "origin_id": self.origin_id,
             "destination_id": self.destination_id,
+            "account_owner_id": self.account_owner_id,
         }

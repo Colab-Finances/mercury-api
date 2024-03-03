@@ -47,6 +47,7 @@ class TestAddTransferMovementCommandHandler:
         transfer_factory = TransferMovementFactory(
             origin_id=self.origin.id.primitive,
             destination_id=self.destination.id.primitive,
+            account_owner_id=self.owner.id.primitive,
         )
         self.transfer = transfer_factory.aggregate()
         self.transfer_attrs = transfer_factory.to_dict()
@@ -73,6 +74,7 @@ class TestAddTransferMovementCommandHandler:
             destination_id=self.transfer.destination_id.primitive,
             amount=self.transfer.amount.primitive,
             date=self.transfer.date.primitive,
+            account_owner_id=self.transfer.account_owner_id.primitive,
         )
 
         await self.handler(command)

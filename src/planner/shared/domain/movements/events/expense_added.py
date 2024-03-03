@@ -8,10 +8,16 @@ class ExpenseMovementAdded(DomainEvent):
     date: str
     amount: int
     account_id: str
+    account_owner_id: str
 
     @staticmethod
     def event_name() -> str:
         return "planner.movements.expense_added"
 
     def payload(self) -> dict:
-        return {"date": self.date, "amount": self.amount, "account_id": self.account_id}
+        return {
+            "date": self.date,
+            "amount": self.amount,
+            "account_id": self.account_id,
+            "account_owner_id": self.account_owner_id,
+        }

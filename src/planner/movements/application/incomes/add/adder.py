@@ -34,6 +34,6 @@ class IncomeMovementAdder:
         user_id: UserId,
     ) -> None:
         await self._auth_service.ensure_user_is_account_owner(account_id, user_id)
-        expense = IncomeMovement.add(id, amount, account_id, date)
+        expense = IncomeMovement.add(id, amount, account_id, date, user_id)
         await self._repository.save(expense)
         await self._event_bus.publish(*expense.pull_domain_events())

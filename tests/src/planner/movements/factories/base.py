@@ -20,3 +20,4 @@ class MovementFactory:
 class MovementAddedFactory:
     amount: int = field(default_factory=fake.pyint)
     date: str = field(default_factory=lambda: fake.date_object().strftime(DATE_FORMAT))
+    account_owner_id: str = field(default_factory=lambda: str(uuid4()))

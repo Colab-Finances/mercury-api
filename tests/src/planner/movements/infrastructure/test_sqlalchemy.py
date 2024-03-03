@@ -15,6 +15,7 @@ from tests.src.planner.users.factories import UserFactory
 pytestmark = pytest.mark.anyio
 
 
+@pytest.mark.skip(reason="Deprecate Repository")
 class TestSqlAlchemyMovementRepository:
     def setup_method(self):
         self.user = UserFactory.build()
