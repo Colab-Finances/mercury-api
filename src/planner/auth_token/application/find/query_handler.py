@@ -10,6 +10,8 @@ from .query import FindAuthTokenQuery
 
 @inject
 class FindAuthTokenQueryHandler:
+    QUERY = FindAuthTokenQuery
+
     def __init__(self, use_case: AuthTokenFinder) -> None:
         self.use_case = use_case
 

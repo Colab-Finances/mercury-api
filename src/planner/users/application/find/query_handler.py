@@ -10,6 +10,8 @@ from .responses import UserResponse
 
 @inject
 class FindUserQueryHandler:
+    QUERY = FindUserQuery
+
     def __init__(self, use_case: UserFinder) -> None:
         self.use_case = use_case
 

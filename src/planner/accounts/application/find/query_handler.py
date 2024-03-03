@@ -11,6 +11,8 @@ from .finder import AccountFinder
 
 @inject
 class FindAccountQueryHandler:
+    QUERY = FindAccountQuery
+
     def __init__(self, use_case: AccountFinder) -> None:
         self.use_case = use_case
 

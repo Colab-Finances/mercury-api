@@ -60,18 +60,18 @@ class TestListMovementController(TestController):
                 "type": "transfer",
             },
             {
-                "id": income.id.primitive,
-                "amount": income.amount.primitive,
-                "date": income.date.primitive,
-                "account_id": income.account_id.primitive,
-                "type": "income",
-            },
-            {
                 "id": expense.id.primitive,
                 "amount": expense.amount.primitive,
                 "date": expense.date.primitive,
                 "account_id": expense.account_id.primitive,
                 "type": "expense",
+            },
+            {
+                "id": income.id.primitive,
+                "amount": income.amount.primitive,
+                "date": income.date.primitive,
+                "account_id": income.account_id.primitive,
+                "type": "income",
             },
         ]
 
@@ -81,6 +81,4 @@ class TestListMovementController(TestController):
         sqlalchemy_sessionmaker: type[AsyncSession],
         motor_database: AgnosticDatabase,
     ) -> None:
-        self.ensure_return_unauthorized_missing_token(
-            await client.get(self._url % fake.uuid4())
-        )
+        self.ensure_return_unauthorized_missing_token(await client.get(self._url))
