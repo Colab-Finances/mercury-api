@@ -1,16 +1,32 @@
 from fastapi import APIRouter, status
 
-from src.planner.movements.application.responses import MovementResponse
+from src.planner.movements.application.responses import (
+    MovementResponse,
+    MovementsResponse,
+)
 
-from .controllers import add_expense, add_income, add_transfer, find
+from .controllers import (
+    add_expense,
+    add_income,
+    add_transfer,
+    find_movement,
+    list_movements,
+)
 
 router = APIRouter()
 
 router.add_api_route(
+    "/v1/movements",
+    methods=["GET"],
+    endpoint=list_movements,
+    response_model=MovementsResponse,
+    status_code=status.HTTP_200_OK,
+)
+
+router.add_api_route(
     "/v1/movements/{id}",
     methods=["GET"],
-    endpoint=find,
-    tags=["movements"],
+    endpoint=find_movement,
     response_model=MovementResponse,
     status_code=status.HTTP_200_OK,
 )

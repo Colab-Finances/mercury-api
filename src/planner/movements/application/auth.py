@@ -1,9 +1,6 @@
-from typing import cast
-
 from kink import inject
 
 from src.planner.shared.application.accounts.query import FindAccountQuery
-from src.planner.shared.application.accounts.response import AccountResponse
 from src.planner.shared.domain.accounts import AccountId
 from src.planner.shared.domain.bus.query import QueryBus
 from src.planner.shared.domain.exceptions.forbidden import ForbiddenAccess
@@ -21,6 +18,5 @@ class MovementAuthorizationService:
         account = await self.query_bus.ask(
             FindAccountQuery(id=account_id.primitive, owner_id=user_id.primitive)
         )
-        account = cast(AccountResponse, account)
         if account.owner_id != user_id.primitive:
             raise ForbiddenAccess

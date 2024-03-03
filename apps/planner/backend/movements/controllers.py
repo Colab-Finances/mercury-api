@@ -1,4 +1,4 @@
-from typing import Annotated, cast
+from typing import Annotated
 
 from fastapi import Depends
 from kink import di
@@ -12,7 +12,11 @@ from src.planner.movements.application.find.query import FindMovementQuery
 from src.planner.movements.application.incomes.add.command import (
     AddIncomeMovementCommand,
 )
-from src.planner.movements.application.responses import MovementResponse
+from src.planner.movements.application.list.query import ListMovementQuery
+from src.planner.movements.application.responses import (
+    MovementResponse,
+    MovementsResponse,
+)
 from src.planner.movements.application.transfers.add.command import (
     AddTransferMovementCommand,
 )
@@ -22,17 +26,23 @@ from src.planner.shared.domain.bus.query import QueryBus
 from .schemas import AddExpenseSchema, AddIncomeSchema, AddTransferSchema
 
 
-async def find(
+async def find_movement(
     id: str,
     query_bus: Annotated[QueryBus, Depends(lambda: di[QueryBus])],
     access_token: Annotated[str, Depends(oauth2_scheme)],
 ) -> MovementResponse:
-    auth_token = cast(
-        FindAuthTokenQuery.Response,
-        await query_bus.ask(FindAuthTokenQuery(access_token=access_token)),
-    )
+    auth_token = await query_bus.ask(FindAuthTokenQuery(access_token=access_token))
     find_user_query = FindMovementQuery(id=id, account_owner_id=auth_token.user_id)
-    return cast(MovementResponse, await query_bus.ask(find_user_query))
+    return await query_bus.ask(find_user_query)  # type: ignore[arg-type]
+
+
+async def list_movements(
+    query_bus: Annotated[QueryBus, Depends(lambda: di[QueryBus])],
+    access_token: Annotated[str, Depends(oauth2_scheme)],
+) -> MovementsResponse:
+    auth_token = await query_bus.ask(FindAuthTokenQuery(access_token=access_token))
+    find_user_query = ListMovementQuery(account_owner_id=auth_token.user_id)
+    return await query_bus.ask(find_user_query)
 
 
 async def add_transfer(
@@ -45,10 +55,7 @@ async def add_transfer(
     """
     Add TransferMovement to user's account.
     """
-    auth_token = cast(
-        FindAuthTokenQuery.Response,
-        await query_bus.ask(FindAuthTokenQuery(access_token=access_token)),
-    )
+    auth_token = await query_bus.ask(FindAuthTokenQuery(access_token=access_token))
     command = AddTransferMovementCommand(
         **params.to_dict(), id=id, user_id=auth_token.user_id
     )
@@ -65,10 +72,7 @@ async def add_income(
     """
     Add IncomeMovement to user's account.
     """
-    auth_token = cast(
-        FindAuthTokenQuery.Response,
-        await query_bus.ask(FindAuthTokenQuery(access_token=access_token)),
-    )
+    auth_token = await query_bus.ask(FindAuthTokenQuery(access_token=access_token))
     command = AddIncomeMovementCommand(
         **params.to_dict(), id=id, user_id=auth_token.user_id
     )
@@ -85,10 +89,7 @@ async def add_expense(
     """
     Add ExpenseMovement to user's account.
     """
-    auth_token = cast(
-        FindAuthTokenQuery.Response,
-        await query_bus.ask(FindAuthTokenQuery(access_token=access_token)),
-    )
+    auth_token = await query_bus.ask(FindAuthTokenQuery(access_token=access_token))
     command = AddExpenseMovementCommand(
         **params.to_dict(), id=id, user_id=auth_token.user_id
     )
