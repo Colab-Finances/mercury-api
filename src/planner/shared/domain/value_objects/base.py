@@ -1,4 +1,4 @@
-from typing import Any, Generic, TypeVar, Union
+from typing import Any, Generic, Never, TypeVar
 
 from src.planner.shared.domain.exceptions.invalid_value import InvalidValueException
 
@@ -19,16 +19,15 @@ class ValueObject(Generic[T]):
 
     def _cast(self, value: Any) -> T:
         if value is None:
-            raise self._fail("Is required")
+            self._fail("Is required")
         if isinstance(value, self.BASE_TYPE):
             return value
         try:
             return self.BASE_TYPE(value)  # type: ignore[call-arg]
         except Exception:
             self._fail(f"Invalid {self.BASE_TYPE.__name__}")
-            return None  # type: ignore[return-value]
 
-    def _fail(self, message: str):
+    def _fail(self, message: str) -> Never:
         raise InvalidValueException(message=message, source=self._name)
 
     @property
@@ -36,11 +35,11 @@ class ValueObject(Generic[T]):
         return self._value
 
     @property
-    def primitive(self) -> Union[str, int, bool]:
+    def primitive(self) -> T:
         """
         Use this method to get the primitive value of the object. Useful for serialization
         """
-        return self.value  # type: ignore[return-value]
+        return self.value
 
     def _set_value(self, value: Any) -> None:
         casted_value = self._cast(value)
@@ -72,7 +71,7 @@ class ValueObject(Generic[T]):
         Override this method to implement custom validations
         """
         if not isinstance(value, self.BASE_TYPE):
-            raise self._fail(
+            self._fail(
                 f"invalid type: Want {self.BASE_TYPE.__name__} got {type(value).__name__}"
             )
 

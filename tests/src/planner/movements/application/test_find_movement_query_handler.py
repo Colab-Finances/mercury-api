@@ -41,7 +41,7 @@ class TestFindMovementQueryHandler:
         self._repository.search.return_value = expense
 
         response = await self.handler(query)
-        assert isinstance(response, ExpenseMovementResponse)
+        assert response == ExpenseMovementResponse.from_entity(expense)
 
         self._repository.search.assert_called_once_with(expense.id)
 
@@ -53,7 +53,7 @@ class TestFindMovementQueryHandler:
         self._repository.search.return_value = income
 
         response = await self.handler(query)
-        assert isinstance(response, IncomeMovementResponse)
+        assert response == IncomeMovementResponse.from_entity(income)
 
         self._repository.search.assert_called_once_with(income.id)
 
@@ -66,7 +66,7 @@ class TestFindMovementQueryHandler:
         self._repository.search.return_value = transfer
 
         response = await self.handler(query)
-        assert isinstance(response, TransferMovementResponse)
+        assert response == TransferMovementResponse.from_entity(transfer)
 
         self._repository.search.assert_called_once_with(transfer.id)
 

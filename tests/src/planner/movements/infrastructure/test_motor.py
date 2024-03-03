@@ -26,6 +26,36 @@ class TestMotorMovementRepository:
 
         assert await repository.search(movement.id) is None
 
+    async def test_match_should_return_a_empty_list(
+        self, motor_database: AgnosticDatabase
+    ):
+        expense = ExpenseMovementFactory.build()
+        repository = MotorMovementRepository(motor_database)
+
+        assert await repository.match(expense.account_owner_id) == []
+
+    async def test_match_should_return_a_list_of_movements(
+        self, motor_database: AgnosticDatabase
+    ):
+        repository = MotorMovementRepository(motor_database)
+        expense = ExpenseMovementFactory.build()
+        income = IncomeMovementFactory.build(
+            account_owner_id=expense.account_owner_id.primitive
+        )
+        transfer = TransferMovementFactory.build(
+            account_owner_id=expense.account_owner_id.primitive
+        )
+
+        await repository.save(expense)
+        await repository.save(income)
+        await repository.save(transfer)
+
+        assert await repository.match(expense.account_owner_id) == [
+            expense,
+            income,
+            transfer,
+        ]
+
 
 class TestMotorMovementRepositoryWithExpenses:
     def setup_method(self):

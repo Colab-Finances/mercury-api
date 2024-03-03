@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import List, Optional
 
 from kink import inject
 
@@ -9,9 +9,11 @@ from src.planner.movements.domain.repository import MovementRepository, Movement
 from src.planner.movements.domain.transfers.aggregate import TransferMovement
 from src.planner.movements.domain.value_objects.id import MovementId
 from src.planner.shared.application.mappers import dict_to_entity
+from src.planner.shared.domain.users.id import UserId
 from src.planner.shared.infrastructure.persistence.motor.repositories import (
     MotorRepository,
 )
+from src.planner.users.domain.entity import User
 
 
 @inject(alias=MovementRepository, use_factory=True)
@@ -26,7 +28,7 @@ class MotorMovementRepository(MotorRepository):
     async def save(self, movement: Movement) -> None:
         await self.collection.update_one(
             {"id": movement.id.value},
-            {"$set": self.aggregate_to_dict(movement)},
+            {"$set": self._aggregate_to_dict(movement)},
             upsert=True,
         )
 
@@ -38,7 +40,13 @@ class MotorMovementRepository(MotorRepository):
 
         return dict_to_entity(result, self.TYPES[result["_type"]])  # type: ignore[arg-type]
 
-    def aggregate_to_dict(self, aggregate) -> dict:
-        data = super().aggregate_to_dict(aggregate)
+    async def match(self, account_owner_id: UserId) -> List[MovementType]:
+        """Match all movements by account owner id"""
+        cursor = self.collection.find({"account_owner_id": account_owner_id.value})
+        result = await cursor.to_list(None)
+        return [dict_to_entity(data, self.TYPES[data["_type"]]) for data in result]
+
+    def _aggregate_to_dict(self, aggregate) -> dict:
+        data = super()._aggregate_to_dict(aggregate)
         data["_type"] = type(aggregate).__name__
         return data
