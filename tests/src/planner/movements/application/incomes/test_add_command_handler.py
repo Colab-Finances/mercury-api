@@ -41,7 +41,10 @@ class TestAddIncomeMovementCommandHandler:
 
         # Arrange
         self.account = AccountFactory.build()
-        income_factory = IncomeMovementFactory(account_id=self.account.id.primitive, account_owner_id=self.account.owner_id.primitive)
+        income_factory = IncomeMovementFactory(
+            account_id=self.account.id.primitive,
+            account_owner_id=self.account.owner_id.primitive,
+        )
         self.income = income_factory.aggregate()
         self.income_attrs = income_factory.to_dict()
 
@@ -62,7 +65,6 @@ class TestAddIncomeMovementCommandHandler:
             amount=self.income.amount.primitive,
             date=self.income.date.primitive,
             account_owner_id=self.income.account_owner_id.primitive,
-
         )
 
         await self.handler(command)

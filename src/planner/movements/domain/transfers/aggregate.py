@@ -9,6 +9,7 @@ from src.planner.shared.domain.accounts import AccountId
 from src.planner.shared.domain.movements.events import TransferMovementAdded
 from src.planner.shared.domain.users.id import UserId
 
+
 @dataclass
 class TransferMovement(Movement):
     origin_id: AccountId

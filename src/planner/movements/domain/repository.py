@@ -1,5 +1,7 @@
 from typing import Protocol, runtime_checkable
 
+from src.planner.movements.domain.value_objects.id import MovementId
+
 from .aggregate import Movement
 
 
@@ -9,5 +11,5 @@ class MovementRepository(Protocol):
     async def save(self, movement: Movement) -> None:
         ...
 
-    async def search(self, id: str) -> Movement:
+    async def search(self, id: MovementId) -> Movement:
         ...

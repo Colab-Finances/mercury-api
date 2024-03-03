@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-from re import U
 from typing import Self
 
 from src.planner.movements.domain.aggregate import Movement
@@ -24,7 +23,13 @@ class ExpenseMovement(Movement):
         date: MovementDate,
         account_owner_id: UserId,
     ) -> Self:
-        expense = cls(id=id, amount=amount, account_id=account_id, date=date, account_owner_id=account_owner_id)
+        expense = cls(
+            id=id,
+            amount=amount,
+            account_id=account_id,
+            date=date,
+            account_owner_id=account_owner_id,
+        )
         expense._record_event(
             ExpenseMovementAdded.make(
                 expense.id.primitive,

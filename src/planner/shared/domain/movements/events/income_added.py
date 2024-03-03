@@ -15,4 +15,9 @@ class IncomeMovementAdded(DomainEvent):
         return "planner.movements.income_added"
 
     def payload(self) -> dict:
-        return {"date": self.date, "amount": self.amount, "account_id": self.account_id, "account_owner_id": self.account_owner_id}
+        return {
+            "date": self.date,
+            "amount": self.amount,
+            "account_id": self.account_id,
+            "account_owner_id": self.account_owner_id,
+        }

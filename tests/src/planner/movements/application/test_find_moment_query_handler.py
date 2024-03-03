@@ -20,7 +20,6 @@ from tests.src.planner.movements.factories import (
     IncomeMovementFactory,
     TransferMovementFactory,
 )
-from tests.src.planner.shared.factories.accounts import AccountFactory
 
 pytestmark = pytest.mark.anyio
 

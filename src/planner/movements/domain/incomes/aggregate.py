@@ -23,7 +23,13 @@ class IncomeMovement(Movement):
         date: MovementDate,
         account_owner_id: UserId,
     ) -> Self:
-        income = cls(id=id, amount=amount, account_id=account_id, date=date, account_owner_id=account_owner_id)
+        income = cls(
+            id=id,
+            amount=amount,
+            account_id=account_id,
+            date=date,
+            account_owner_id=account_owner_id,
+        )
         income._record_event(
             IncomeMovementAdded.make(
                 income.id.primitive,
