@@ -1,30 +1,19 @@
-from typing import List
 from unittest.mock import Mock
 from uuid import uuid4
 
 import pytest
 
-from src.planner.movements.application.find.finder import MovementFinder
-from src.planner.movements.application.find.query import FindMovementQuery
-from src.planner.movements.application.find.query_handler import (
-    FindMovementQueryHandler,
-)
 from src.planner.movements.application.list.lister import MovementLister
-from src.planner.movements.application.list.query import ListMovementQuery
 from src.planner.movements.application.list.query_handler import (
     ListMovementQueryHandler,
 )
 from src.planner.movements.application.responses import (
     ExpenseMovementResponse,
     IncomeMovementResponse,
-    MovementResponse,
     MovementsResponse,
     TransferMovementResponse,
 )
-from src.planner.movements.domain.aggregate import Movement
-from src.planner.movements.domain.exceptions.not_found import MovementNotFound
 from src.planner.movements.domain.repository import MovementRepository
-from src.planner.shared.domain.exceptions.base import DomainException
 from src.planner.shared.domain.users.id import UserId
 from tests.src.planner.movements.factories import (
     ExpenseMovementFactory,

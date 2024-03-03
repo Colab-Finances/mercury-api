@@ -10,7 +10,7 @@ class DateValueObject(ValueObject[date]):
 
     def _cast(self, value: str) -> date:
         if value is None:
-            raise self._fail("Is required")
+            self._fail("Is required")
         if isinstance(value, datetime):  # Date is a subclass of datetime
             return value.date()
         if isinstance(value, date):
@@ -22,7 +22,7 @@ class DateValueObject(ValueObject[date]):
             return None  # type: ignore[return-value]
 
     @property
-    def primitive(self) -> str:
+    def primitive(self) -> str:  # type: ignore[override]
         """
         Transform date value to string
         """

@@ -1,7 +1,6 @@
-from typing import List, Self
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from enum import Enum
-from typing import Union
+from typing import List, Self, Union
 
 from src.planner.movements.domain.expenses.aggregate import ExpenseMovement
 from src.planner.movements.domain.incomes.aggregate import IncomeMovement

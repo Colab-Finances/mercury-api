@@ -1,12 +1,7 @@
-from typing import Union
-
 from kink import inject
 
 from src.planner.movements.domain.exceptions.not_found import MovementNotFound
-from src.planner.movements.domain.expenses.aggregate import ExpenseMovement
-from src.planner.movements.domain.incomes.aggregate import IncomeMovement
 from src.planner.movements.domain.repository import MovementRepository, MovementType
-from src.planner.movements.domain.transfers.aggregate import TransferMovement
 from src.planner.movements.domain.value_objects import MovementId
 from src.planner.shared.domain.users import UserId
 

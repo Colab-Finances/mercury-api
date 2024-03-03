@@ -13,7 +13,6 @@ from src.planner.shared.domain.users.id import UserId
 from src.planner.shared.infrastructure.persistence.motor.repositories import (
     MotorRepository,
 )
-from src.planner.users.domain.entity import User
 
 
 @inject(alias=MovementRepository, use_factory=True)
@@ -44,7 +43,7 @@ class MotorMovementRepository(MotorRepository):
         """Match all movements by account owner id"""
         cursor = self.collection.find({"account_owner_id": account_owner_id.value})
         result = await cursor.to_list(None)
-        return [dict_to_entity(data, self.TYPES[data["_type"]]) for data in result]
+        return [dict_to_entity(data, self.TYPES[data["_type"]]) for data in result]  # type: ignore[arg-type]  # noqa: E501
 
     def _aggregate_to_dict(self, aggregate) -> dict:
         data = super()._aggregate_to_dict(aggregate)

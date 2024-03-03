@@ -25,4 +25,5 @@ def entity_to_response(
     if not isinstance(entity, Movement):
         raise RuntimeError(f"Entity {entity} is not a valid Movement")
 
-    return responses[type(entity)].from_entity(entity)
+    # TODO: Cast to SingleResponse type
+    return responses[type(entity)].from_entity(entity)  # type: ignore[attr-defined]

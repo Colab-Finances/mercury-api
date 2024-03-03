@@ -1,4 +1,3 @@
-from typing import List
 from kink import inject
 
 from src.planner.movements.application.mappers import entity_to_response
