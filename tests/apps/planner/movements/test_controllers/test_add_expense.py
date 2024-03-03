@@ -26,7 +26,9 @@ class TestAddExpenseMovementController:
         self._expense = ExpenseMovementFactory.build(
             account_id=self._account.id.primitive
         )
-        self._url = f"{settings.API_PREFIX}/v1/movements/expenses/{self._expense.id.primitive}"
+        self._url = (
+            f"{settings.API_PREFIX}/v1/movements/expenses/{self._expense.id.primitive}"
+        )
         self.params = {
             "amount": self._expense.amount.primitive,
             "account_id": self._expense.account_id.primitive,

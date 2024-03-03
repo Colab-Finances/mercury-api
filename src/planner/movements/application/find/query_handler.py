@@ -11,6 +11,8 @@ from .query import FindMovementQuery
 
 @inject
 class FindMovementQueryHandler:
+    QUERY = FindMovementQuery
+
     def __init__(self, use_case: MovementFinder) -> None:
         self.use_case = use_case
 

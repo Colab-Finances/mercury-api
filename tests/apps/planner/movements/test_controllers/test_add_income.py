@@ -26,7 +26,9 @@ class TestAddIncomeMovementController:
         self._income = IncomeMovementFactory.build(
             account_id=self._account.id.primitive
         )
-        self._url = f"{settings.API_PREFIX}/v1/movements/incomes/{self._income.id.primitive}"
+        self._url = (
+            f"{settings.API_PREFIX}/v1/movements/incomes/{self._income.id.primitive}"
+        )
         self.params = {
             "amount": self._income.amount.primitive,
             "account_id": self._income.account_id.primitive,

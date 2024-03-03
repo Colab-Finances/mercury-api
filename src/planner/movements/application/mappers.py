@@ -1,3 +1,5 @@
+from typing import Union
+
 from src.planner.movements.domain.aggregate import Movement
 from src.planner.movements.domain.expenses.aggregate import ExpenseMovement
 from src.planner.movements.domain.incomes.aggregate import IncomeMovement
@@ -20,7 +22,9 @@ responses = {
 }
 
 
-def entity_to_response(entity: Movement) -> MovementResponse:
+def entity_to_response(
+    entity: Union[ExpenseMovement, IncomeMovement, TransferMovement]
+) -> MovementResponse:
     if not isinstance(entity, Movement):
         raise RuntimeError(f"Entity {entity} is not a valid Movement")
 

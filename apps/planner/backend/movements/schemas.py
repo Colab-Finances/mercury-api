@@ -1,14 +1,11 @@
 from dataclasses import asdict, dataclass
 
-from src.planner.movements.application.incomes.add.command import (
-    AddIncomeMovementCommand,
-)
-from dataclasses import asdict, dataclass
-
 from src.planner.movements.application.expenses.add.command import (
     AddExpenseMovementCommand,
 )
-
+from src.planner.movements.application.incomes.add.command import (
+    AddIncomeMovementCommand,
+)
 from src.planner.movements.application.transfers.add.command import (
     AddTransferMovementCommand,
 )

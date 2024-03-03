@@ -30,7 +30,8 @@ QR = TypeVar("QR", bound=QueryResponse)
 
 
 def entity_to_response(entity: AggregateRoot, response: type[QR]) -> QR:
-    attributes = {
-        key: getattr(entity, key).primitive for key in response.__annotations__.keys()
-    }
+    annotations = filter(
+        lambda key: key != "return", response.__init__.__annotations__.keys()
+    )
+    attributes = {key: getattr(entity, key).primitive for key in annotations}
     return response(**attributes)

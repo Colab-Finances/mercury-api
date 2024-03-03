@@ -5,6 +5,9 @@ from src.planner.auth_token.application.find.query import FindAuthTokenQuery
 from src.planner.auth_token.application.find.query_handler import (
     FindAuthTokenQueryHandler,
 )
+from src.planner.movements.application.find.query_handler import (
+    FindMovementQueryHandler,
+)
 from src.planner.shared.application.accounts.query import FindAccountQuery
 from src.planner.shared.domain.bus.query import Query, QueryBus, QueryResponse
 from src.planner.shared.domain.bus.query.exceptions import QueryNotRegistered
@@ -18,6 +21,7 @@ class HardcodedQueryBus:
         FindUserQuery: FindUserQueryHandler,
         FindAuthTokenQuery: FindAuthTokenQueryHandler,
         FindAccountQuery: FindAccountQueryHandler,
+        FindMovementQueryHandler.QUERY: FindMovementQueryHandler,
     }
 
     async def ask(self, command: Query) -> QueryResponse:
