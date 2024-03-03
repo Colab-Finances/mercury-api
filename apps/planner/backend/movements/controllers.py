@@ -53,7 +53,7 @@ async def add_transfer(
     params: AddTransferSchema,
 ):
     """
-    Add TransferMovement to user's account.
+    Regist a transfer between two accounts.
     """
     auth_token = await query_bus.ask(FindAuthTokenQuery(access_token=access_token))
     command = AddTransferMovementCommand(
