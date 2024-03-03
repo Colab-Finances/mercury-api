@@ -1,9 +1,9 @@
-version: '3.8'
+version: "3.8"
 
 services:
   planner_api:
     dns:
-        - 8.8.8.8
+      - 8.8.8.8
     build:
       context: ./ # We need run this from the root of the project
       dockerfile: ./docker/planner/develop/fastapi/Dockerfile
@@ -34,6 +34,7 @@ services:
       - 5433:5432
     environment:
       - PGDATA=/var/lib/postgresql/data/pgdata
+
   document_db:
     image: mongo:7
     ports:
