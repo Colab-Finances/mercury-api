@@ -1,12 +1,10 @@
 import { useQuery } from 'react-query'
 import { useNavigate } from '@tanstack/react-router'
 
-import {
-  Body_login_login_access_token as AccessToken,
-  LoginService,
-  UserOut,
-  UsersService,
-} from '../../../client'
+import { UserOut, UsersService } from '../../../client'
+import { login } from '../../../modules/auth/application/login/login'
+import { AuthRepository } from '../../../modules/auth/domain/AuthRepository'
+import { AuthBasic } from '../../../modules/auth/application/login/AuthBasic'
 
 const isLoggedIn = () => {
   return localStorage.getItem('access_token') !== null
@@ -22,21 +20,21 @@ const useAuth = () => {
     },
   )
 
-  const login = async (data: AccessToken) => {
-    const response = await LoginService.loginAccessToken({
-      formData: data,
-    })
-    localStorage.setItem('access_token', response.access_token)
-    navigate({ to: '/' })
-  }
-
   const logout = () => {
     localStorage.removeItem('access_token')
     navigate({ to: '/login' })
   }
 
-  return { login, logout, user, isLoading }
+  return { logout, user, isLoading }
 }
 
 export { isLoggedIn }
 export default useAuth
+
+export function useLogin(repository: AuthRepository) {
+  return async function (data: AuthBasic) {
+    await login(repository)(data)
+    console.log('login successful')
+    // localStorage.setItem('access_token', response.access_token)
+  }
+}

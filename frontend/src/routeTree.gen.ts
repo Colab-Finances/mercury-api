@@ -10,15 +10,15 @@
 
 // Import Routes
 
-import { Route as rootRoute } from './sections/shared/routes/__root'
-import { Route as ResetPasswordImport } from './sections/shared/routes/reset-password'
-import { Route as RecoverPasswordImport } from './sections/shared/routes/recover-password'
-import { Route as LoginImport } from './sections/shared/routes/login'
-import { Route as LayoutImport } from './sections/shared/routes/_layout'
-import { Route as LayoutIndexImport } from './sections/shared/routes/_layout/index'
-import { Route as LayoutSettingsImport } from './sections/shared/routes/_layout/settings'
-import { Route as LayoutItemsImport } from './sections/shared/routes/_layout/items'
-import { Route as LayoutAdminImport } from './sections/shared/routes/_layout/admin'
+import { Route as rootRoute } from './sections/old/routes/__root'
+import { Route as ResetPasswordImport } from './sections/old/routes/reset-password'
+import { Route as RecoverPasswordImport } from './sections/old/routes/recover-password'
+import { Route as LoginImport } from './sections/auth/routes/login'
+import { Route as LayoutImport } from './sections/old/routes/_layout'
+import { Route as LayoutIndexImport } from './sections/old/routes/_layout/index'
+import { Route as LayoutSettingsImport } from './sections/old/routes/_layout/settings'
+import { Route as LayoutItemsImport } from './sections/old/routes/_layout/items'
+import { Route as LayoutAdminImport } from './sections/old/routes/_layout/admin'
 
 // Create/Update Routes
 

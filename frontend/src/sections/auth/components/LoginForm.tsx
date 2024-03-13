@@ -1,5 +1,3 @@
-import React from 'react'
-import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 import {
   Button,
   Center,
@@ -14,60 +12,22 @@ import {
   Link,
   useBoolean,
 } from '@chakra-ui/react'
-import {
-  Link as RouterLink,
-  createFileRoute,
-  redirect,
-} from '@tanstack/react-router'
-import { SubmitHandler, useForm } from 'react-hook-form'
-
+import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
+import { Link as RouterLink } from '@tanstack/react-router'
 import Logo from '../../../assets/images/fastapi-logo.svg'
-import { ApiError } from '../../../client'
-import { Body_login_login_access_token as AccessToken } from '../../../client/models/Body_login_login_access_token'
-import useAuth, { isLoggedIn } from '../hooks/useAuth'
+import { useLoginForm } from '../hooks/useLoginForm'
+import { AuthRepository } from '../../../modules/auth/domain/AuthRepository'
 
-export const Route = createFileRoute('/login')({
-  component: Login,
-  beforeLoad: async () => {
-    if (isLoggedIn()) {
-      throw redirect({
-        to: '/',
-      })
-    }
-  },
-})
-
-function Login() {
+export function LoginForm(repository: AuthRepository) {
   const [show, setShow] = useBoolean()
-  const { login } = useAuth()
-  const [error, setError] = React.useState<string | null>(null)
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm<AccessToken>({
-    mode: 'onBlur',
-    criteriaMode: 'all',
-    defaultValues: {
-      username: '',
-      password: '',
-    },
-  })
-
-  const onSubmit: SubmitHandler<AccessToken> = async (data) => {
-    try {
-      await login(data)
-    } catch (err) {
-      const errDetail = (err as ApiError).body.detail
-      setError(errDetail)
-    }
-  }
+  const { register, submitForm, errors, isSubmitting } =
+    useLoginForm(repository)
 
   return (
     <>
       <Container
         as="form"
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={submitForm}
         h="100vh"
         maxW="sm"
         alignItems="stretch"
@@ -83,7 +43,7 @@ function Login() {
           alignSelf="center"
           mb={4}
         />
-        <FormControl id="username" isInvalid={!!errors.username || !!error}>
+        <FormControl id="username" isInvalid={!!errors.username}>
           <Input
             id="username"
             {...register('username', {
@@ -91,6 +51,7 @@ function Login() {
                 value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
                 message: 'Invalid email address',
               },
+              // onChange: (e) => console.log(e), # TODO: Use with VO
             })}
             placeholder="Email"
             type="email"
@@ -99,7 +60,7 @@ function Login() {
             <FormErrorMessage>{errors.username.message}</FormErrorMessage>
           )}
         </FormControl>
-        <FormControl id="password" isInvalid={!!error}>
+        <FormControl id="password" isInvalid={false}>
           <InputGroup>
             <Input
               {...register('password')}
@@ -120,7 +81,7 @@ function Login() {
               </Icon>
             </InputRightElement>
           </InputGroup>
-          {error && <FormErrorMessage>{error}</FormErrorMessage>}
+          <FormErrorMessage>Invalid Credentials</FormErrorMessage>
         </FormControl>
         <Center>
           <Link as={RouterLink} to="/recover-password" color="blue.500">
@@ -140,5 +101,3 @@ function Login() {
     </>
   )
 }
-
-export default Login

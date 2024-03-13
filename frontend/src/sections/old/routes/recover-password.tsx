@@ -12,7 +12,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { LoginService } from '../../../client'
 import useCustomToast from '../hooks/useCustomToast'
-import { isLoggedIn } from '../hooks/useAuth'
+import { isLoggedIn } from '../../shared/hooks/useAuth'
 
 interface FormData {
   email: string

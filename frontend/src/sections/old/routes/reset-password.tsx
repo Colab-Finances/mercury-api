@@ -13,7 +13,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { useMutation } from 'react-query'
 
 import { ApiError, LoginService, NewPassword } from '../../../client'
-import { isLoggedIn } from '../hooks/useAuth'
+import { isLoggedIn } from '../../shared/hooks/useAuth'
 import useCustomToast from '../hooks/useCustomToast'
 
 interface NewPasswordForm extends NewPassword {

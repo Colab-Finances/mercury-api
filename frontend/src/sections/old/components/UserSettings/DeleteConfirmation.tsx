@@ -12,7 +12,7 @@ import { useForm } from 'react-hook-form'
 import { useMutation, useQueryClient } from 'react-query'
 
 import { ApiError, UserOut, UsersService } from '../../../../client'
-import useAuth from '../../hooks/useAuth'
+import useAuth from '../../../shared/hooks/useAuth'
 import useCustomToast from '../../hooks/useCustomToast'
 
 interface DeleteProps {

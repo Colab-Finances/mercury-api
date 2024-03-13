@@ -21,7 +21,7 @@ import {
   UserUpdateMe,
   UsersService,
 } from '../../../../client'
-import useAuth from '../../hooks/useAuth'
+import useAuth from '../../../shared/hooks/useAuth'
 import useCustomToast from '../../hooks/useCustomToast'
 
 const UserInformation: React.FC = () => {

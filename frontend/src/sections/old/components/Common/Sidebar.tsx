@@ -18,7 +18,7 @@ import { useQueryClient } from 'react-query'
 
 import Logo from '../../../../assets/images/fastapi-logo.svg'
 import { UserOut } from '../../../../client'
-import useAuth from '../../hooks/useAuth'
+import useAuth from '../../../shared/hooks/useAuth'
 import SidebarItems from './SidebarItems'
 
 const Sidebar: React.FC = () => {
