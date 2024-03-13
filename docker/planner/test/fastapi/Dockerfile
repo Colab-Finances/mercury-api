@@ -18,12 +18,12 @@ RUN apt-get update && apt-get -y install gcc \
 
 # install python dependencies
 RUN pip install --upgrade pip
-COPY ./requirements ./requirements
+COPY ./backend/requirements ./requirements
 RUN pip install -r requirements/test.txt
 
 COPY ["./docker/planner/develop/fastapi/entrypoint.sh", "/entrypoint.sh"]
 COPY ["./docker/planner/test/fastapi/start.sh", "/start.sh"]
-COPY ["./", "./"]
+COPY ["./backend", "./"]
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["/start.sh"]

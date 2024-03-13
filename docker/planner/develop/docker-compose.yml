@@ -8,7 +8,7 @@ services:
       context: ./ # We need run this from the root of the project
       dockerfile: ./docker/planner/develop/fastapi/Dockerfile
     volumes:
-      - .:/usr/src/app
+      - ./backend:/usr/src/app
       - dependencies:/usr/local/lib/python3.11/site-packages
     ports:
       - 8080:8080
@@ -42,7 +42,8 @@ services:
     volumes:
       - document-mercury-db:/data/db
     env_file:
-      - .env
+      - path: .env
+        required: true
     environment:
       - MONGO_INITDB_ROOT_USERNAME=${MONGO_USER}
       - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASSWORD}

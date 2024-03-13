@@ -8,19 +8,19 @@ services:
       context: ./ # We need run this from the root of the project
       dockerfile: ./docker/planner/test/fastapi/Dockerfile
     env_file:
-      - .env.test
+      - backend/.env.test
     depends_on:
       - database
       - document_db
   database:
     image: postgres:15
     env_file:
-      - .env.test
+      - backend/.env.test
 
   document_db:
     image: mongo:7
     env_file:
-      - .env.test
+      - backend/.env.test
     environment:
       - MONGO_INITDB_ROOT_USERNAME=mongo
       - MONGO_INITDB_ROOT_PASSWORD=mongo

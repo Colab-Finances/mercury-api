@@ -6,30 +6,3 @@ dev:
 	fi;
 	echo "Running command: $(command)"
 	./init.sh run --rm planner_api $(command)
-
-up:
-	make migrate
-	uvicorn apps.planner.backend.server:app --reload --workers 1 --host 0.0.0.0 --port 8080	
-
-psql:
-	PGPASSWORD=${POSTGRES_PASSWORD} psql -h ${POSTGRES_SERVER} -U ${POSTGRES_USER} -d ${POSTGRES_DB}
-
-migrate:
-	alembic upgrade head
-
-test:
-	make lint
-	pytest -v
-
-generate/migration:
-	alembic revision -m "$(message)"
-
-format:
-	black .
-	isort .
-
-lint:
-	flake8 .
-	black --check .
-	isort --check-only .
-	mypy .

@@ -1,7 +1,7 @@
 #!/bin/sh
 
 usage() {
-cat << END
+  cat <<END
 Application Entrypoint.
 
 Usage: ./init DOCKER-COMPOSE-COMMAND
@@ -10,32 +10,32 @@ Options:
   -e (develop|test) : Current environment
                       (default: develop)
 END
-exit 0
+  exit 0
 }
 
 while getopts 'he:' OPTION; do
   case "$OPTION" in
-    e)
-      environment="$OPTARG"
-      ;;
-    h)
-      usage
-      ;;
+  e)
+    environment="$OPTARG"
+    ;;
+  h)
+    usage
+    ;;
   esac
 done
 
 environment=${environment:-develop}
 case $environment in
-'develop'|'test')
-    echo "Running Catatumbo Back in '$environment' environment"
-    ;;
+'develop' | 'test')
+  echo "Running Catatumbo Back in '$environment' environment"
+  ;;
 *)
-    echo "'$environment' is a invalid <environment>. Please read de option to -e <environment>\n"
-    usage
-    ;;
+  echo "'$environment' is a invalid <environment>. Please read de option to -e <environment>\n"
+  usage
+  ;;
 esac
 
 command=$(echo $@ | sed 's/-e\s\+\w\+\s*//')
 
 echo "Docker command: '$command'"
-docker compose -f ./docker/planner/$environment/docker-compose.yml --project-directory . $command 
+docker compose -f ./docker/planner/$environment/docker-compose.yml --project-directory . $command
