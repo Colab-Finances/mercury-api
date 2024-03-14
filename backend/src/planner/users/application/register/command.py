@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 
+from src.planner.users.domain.value_objects.pronoun import Pronoun
 from src.planner.shared.domain.bus.command import Command
 
 
@@ -10,4 +11,4 @@ class RegisterUserCommand(Command):
     name: str
     last_name: str
     password: str
-    pronoun: str
+    pronoun: Pronoun

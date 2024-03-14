@@ -8,10 +8,13 @@ import {
 } from '@chakra-ui/react'
 import { useLoginForm } from '../hooks/useLoginForm'
 import { AuthRepository } from '../../../modules/auth/domain/AuthRepository'
-import { AuthImage } from './AuthImage'
+import { AppImageXL } from '../../shared/components/AppImageXL'
 import { PasswordInput } from './PasswordInput'
 import { UsernameInput } from './UsernameInput'
 import { ForgotPasswordLink } from './ForgotPassworkLink'
+import { RegisterLink } from './RegisterLink'
+import { AlertError } from '../../shared/components/AlertError'
+import { MainButton } from '../../shared/components/MainButton'
 
 export function LoginForm(repository: AuthRepository) {
   const { register, submitForm, errors, isSubmitting } =
@@ -28,30 +31,20 @@ export function LoginForm(repository: AuthRepository) {
       gap={4}
       centerContent
     >
-      <AuthImage />
+      <AppImageXL />
       <UsernameInput
         register={register}
         error={errors.username as { message: string } | undefined}
       />
       <PasswordInput register={register} />
-      {!!errors.root && (
-        <Alert status="error">
-          <AlertIcon />
-          <AlertTitle>{errors.root.message}</AlertTitle>
-        </Alert>
-      )}
+      <AlertError error={errors.root as { message: string } | undefined} />
       <Center>
         <ForgotPasswordLink />
       </Center>
-      <Button
-        bg="ui.main"
-        color="white"
-        _hover={{ opacity: 0.8 }}
-        type="submit"
-        isLoading={isSubmitting}
-      >
-        Log In
-      </Button>
+      <Center>
+        <RegisterLink />
+      </Center>
+      <MainButton isLoading={isSubmitting}>Login</MainButton>
     </Container>
   )
 }
