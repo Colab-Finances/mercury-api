@@ -1,8 +1,8 @@
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { AuthBasic } from '../../../modules/auth/application/login/AuthBasic'
-import { useLogin } from '../../shared/hooks/useAuth'
 import { AuthRepository } from '../../../modules/auth/domain/AuthRepository'
 import { InvalidCredentials } from '../../../modules/auth/domain/errors/InvalidCredentials'
+import { login } from '../../../modules/auth/application/login/login'
 
 export function useLoginForm(repository: AuthRepository) {
   const {
@@ -21,7 +21,7 @@ export function useLoginForm(repository: AuthRepository) {
 
   const onSubmit: SubmitHandler<AuthBasic> = async (data) => {
     try {
-      await useLogin(repository)(data)
+      await login(repository)(data)
     } catch (err) {
       if (err instanceof InvalidCredentials) {
         setError('root', { message: err.message })
