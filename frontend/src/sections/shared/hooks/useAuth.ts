@@ -34,7 +34,5 @@ export default useAuth
 export function useLogin(repository: AuthRepository) {
   return async function (data: AuthBasic) {
     await login(repository)(data)
-    console.log('login successful')
-    // localStorage.setItem('access_token', response.access_token)
   }
 }

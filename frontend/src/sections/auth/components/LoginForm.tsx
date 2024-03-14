@@ -1,4 +1,8 @@
 import {
+  Alert,
+  AlertDescription,
+  AlertIcon,
+  AlertTitle,
   Button,
   Center,
   Container,
@@ -83,6 +87,12 @@ export function LoginForm(repository: AuthRepository) {
           </InputGroup>
           <FormErrorMessage>Invalid Credentials</FormErrorMessage>
         </FormControl>
+        {!!errors.root && (
+          <Alert status="error">
+            <AlertIcon />
+            <AlertTitle>{errors.root.message}</AlertTitle>
+          </Alert>
+        )}
         <Center>
           <Link as={RouterLink} to="/recover-password" color="blue.500">
             Forgot password?

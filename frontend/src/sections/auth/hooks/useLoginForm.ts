@@ -2,6 +2,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { AuthBasic } from '../../../modules/auth/application/login/AuthBasic'
 import { useLogin } from '../../shared/hooks/useAuth'
 import { AuthRepository } from '../../../modules/auth/domain/AuthRepository'
+import { InvalidCredentials } from '../../../modules/auth/domain/errors/InvalidCredentials'
 
 export function useLoginForm(repository: AuthRepository) {
   const {
@@ -13,8 +14,8 @@ export function useLoginForm(repository: AuthRepository) {
     mode: 'onBlur',
     criteriaMode: 'all',
     defaultValues: {
-      username: 'jgmc3012@gmail.com',
-      password: 'Super312!',
+      username: 'test@test.test',
+      password: 'Test123',
     },
   })
 
@@ -22,9 +23,14 @@ export function useLoginForm(repository: AuthRepository) {
     try {
       await useLogin(repository)(data)
     } catch (err) {
-      setError('username', { message: 'An Error on API' })
+      if (err instanceof InvalidCredentials) {
+        setError('root', { message: err.message })
+        return
+      }
+      setError('root', { message: 'Unexpected Error' })
     }
   }
+
   return {
     register,
     submitForm: handleSubmit(onSubmit),
