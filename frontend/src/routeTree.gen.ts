@@ -10,28 +10,13 @@
 
 // Import Routes
 
-import { Route as rootRoute } from './sections/old/routes/__root'
-import { Route as ResetPasswordImport } from './sections/old/routes/reset-password'
-import { Route as RecoverPasswordImport } from './sections/old/routes/recover-password'
+import { Route as rootRoute } from './sections/shared/routes/__root'
 import { Route as LoginImport } from './sections/auth/routes/login'
 import { Route as RegisterImport } from './sections/users/routes/register'
-import { Route as LayoutImport } from './sections/old/routes/_layout'
-import { Route as LayoutIndexImport } from './sections/old/routes/_layout/index'
-import { Route as LayoutSettingsImport } from './sections/old/routes/_layout/settings'
-import { Route as LayoutItemsImport } from './sections/old/routes/_layout/items'
-import { Route as LayoutAdminImport } from './sections/old/routes/_layout/admin'
+import { Route as LayoutImport } from './sections/shared/routes/_layout'
+import { Route as DashboardImport } from './sections/dashboard/routes'
 
 // Create/Update Routes
-
-const ResetPasswordRoute = ResetPasswordImport.update({
-  path: '/reset-password',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const RecoverPasswordRoute = RecoverPasswordImport.update({
-  path: '/recover-password',
-  getParentRoute: () => rootRoute,
-} as any)
 
 const RegisterRoute = RegisterImport.update({
   path: '/register',
@@ -48,33 +33,21 @@ const LayoutRoute = LayoutImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const LayoutIndexRoute = LayoutIndexImport.update({
+const DashboardRoute = DashboardImport.update({
   path: '/',
   getParentRoute: () => LayoutRoute,
 } as any)
 
-const LayoutSettingsRoute = LayoutSettingsImport.update({
-  path: '/settings',
-  getParentRoute: () => LayoutRoute,
-} as any)
-
-const LayoutItemsRoute = LayoutItemsImport.update({
-  path: '/items',
-  getParentRoute: () => LayoutRoute,
-} as any)
-
-const LayoutAdminRoute = LayoutAdminImport.update({
-  path: '/admin',
-  getParentRoute: () => LayoutRoute,
-} as any)
-
-// Populate the FileRoutesByPath interface
-
+// Register the router instance for type safety
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
     '/_layout': {
       preLoaderRoute: typeof LayoutImport
       parentRoute: typeof rootRoute
+    }
+    '/': {
+      preLoaderRoute: typeof DashboardRoute
+      parentRoute: typeof LayoutImport
     }
     '/login': {
       preLoaderRoute: typeof LoginImport
@@ -84,46 +57,15 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RegisterImport
       parentRoute: typeof rootRoute
     }
-    '/recover-password': {
-      preLoaderRoute: typeof RecoverPasswordImport
-      parentRoute: typeof rootRoute
-    }
-    '/reset-password': {
-      preLoaderRoute: typeof ResetPasswordImport
-      parentRoute: typeof rootRoute
-    }
-    '/_layout/admin': {
-      preLoaderRoute: typeof LayoutAdminImport
-      parentRoute: typeof LayoutImport
-    }
-    '/_layout/items': {
-      preLoaderRoute: typeof LayoutItemsImport
-      parentRoute: typeof LayoutImport
-    }
-    '/_layout/settings': {
-      preLoaderRoute: typeof LayoutSettingsImport
-      parentRoute: typeof LayoutImport
-    }
-    '/_layout/': {
-      preLoaderRoute: typeof LayoutIndexImport
-      parentRoute: typeof LayoutImport
-    }
   }
 }
 
 // Create and export the route tree
 
 export const routeTree = rootRoute.addChildren([
-  LayoutRoute.addChildren([
-    LayoutAdminRoute,
-    LayoutItemsRoute,
-    LayoutSettingsRoute,
-    LayoutIndexRoute,
-  ]),
+  LayoutRoute.addChildren([DashboardRoute]),
   LoginRoute,
   RegisterRoute,
-  RecoverPasswordRoute,
-  ResetPasswordRoute,
 ])
 
 /* prettier-ignore-end */

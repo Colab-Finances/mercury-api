@@ -1,11 +1,14 @@
 import { createFileRoute, redirect } from '@tanstack/react-router'
+import { LoginForm } from '../components/LoginForm'
+import { MercuryAuthRepository } from '../../../modules/auth/infrastructure/MercuryAuthRepository'
+import { isLoggedIn } from '../../../modules/auth/application/login/isLoggedIn'
 
-import { isLoggedIn } from '../../shared/hooks/useAuth'
+const repository = new MercuryAuthRepository()
 
 export const Route = createFileRoute('/login')({
   component: Login,
   beforeLoad: async () => {
-    if (isLoggedIn()) {
+    if (isLoggedIn(repository)) {
       throw redirect({
         to: '/',
       })
@@ -13,11 +16,7 @@ export const Route = createFileRoute('/login')({
   },
 })
 
-import { LoginForm } from '../components/LoginForm'
-import { MercuryAuthRepository } from '../../../modules/auth/infrastructure/MercuryAuthRepository'
-
 function Login() {
-  const repository = new MercuryAuthRepository()
   return LoginForm(repository)
 }
 

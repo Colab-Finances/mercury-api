@@ -5,6 +5,7 @@ import {
   RegisterData,
   register as registerUser,
 } from '../../../modules/users/application/register'
+import { useNavigate } from '@tanstack/react-router'
 export function useRegisterForm(repository: UserRepository) {
   const {
     register,
@@ -15,16 +16,16 @@ export function useRegisterForm(repository: UserRepository) {
     mode: 'onBlur',
     criteriaMode: 'all',
   })
+  const navigate = useNavigate()
 
   const onSubmit: SubmitHandler<RegisterData> = async (data) => {
     try {
       await registerUser(repository)(data)
+      navigate({ to: '/' })
     } catch (err) {
-      if (err instanceof DomainError) {
-        setError('root', { message: err.message })
-        return
-      }
-      setError('root', { message: 'Unexpected Error' })
+      const message =
+        err instanceof DomainError ? err.message : 'Unexpected Error'
+      setError('root', { message: message })
     }
   }
 

@@ -6,6 +6,6 @@ export function login(repository: AuthRepository) {
   return async function (data: AuthBasic): Promise<void> {
     const auth_token = await repository.get(data)
     if (auth_token === null) throw new InvalidCredentials()
-    await repository.save(auth_token)
+    repository.save(auth_token)
   }
 }
