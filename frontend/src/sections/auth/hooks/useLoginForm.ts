@@ -4,6 +4,7 @@ import { AuthRepository } from '../../../modules/auth/domain/AuthRepository'
 import { InvalidCredentials } from '../../../modules/auth/domain/errors/InvalidCredentials'
 import { login } from '../../../modules/auth/application/login/login'
 import { useNavigate } from '@tanstack/react-router'
+import { logOut } from '../../../modules/auth/application/login/logOut'
 
 export function useLoginForm(repository: AuthRepository) {
   const {
@@ -40,4 +41,15 @@ export function useLoginForm(repository: AuthRepository) {
     errors,
     isSubmitting,
   }
+}
+
+export function useLogOut(repository: AuthRepository) {
+  const navigate = useNavigate()
+
+  const onClick = () => {
+    logOut(repository)
+    navigate({ to: '/login' })
+  }
+
+  return { onClick }
 }

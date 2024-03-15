@@ -11,15 +11,16 @@ import { FaUserAstronaut } from 'react-icons/fa'
 import { FiLogOut, FiUser } from 'react-icons/fi'
 
 import { Link } from '@tanstack/react-router'
-import { logOut } from '../../../../modules/auth/application/login/logOut'
 import { MercuryAuthRepository } from '../../../../modules/auth/infrastructure/MercuryAuthRepository'
+import { useLogOut } from '../../../auth/hooks/useLoginForm'
 
 const repository = new MercuryAuthRepository()
 
-const UserMenu: React.FC = () => {
+const ProfileMenu: React.FC = () => {
+  const { onClick } = useLogOut(repository)
+
   return (
     <>
-      {/* Desktop */}
       <Box
         display={{ base: 'none', md: 'block' }}
         position="fixed"
@@ -40,7 +41,7 @@ const UserMenu: React.FC = () => {
             </MenuItem>
             <MenuItem
               icon={<FiLogOut fontSize="18px" />}
-              onClick={() => logOut(repository)}
+              onClick={onClick}
               color="ui.danger"
               fontWeight="bold"
             >
@@ -53,4 +54,4 @@ const UserMenu: React.FC = () => {
   )
 }
 
-export default UserMenu
+export default ProfileMenu
