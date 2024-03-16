@@ -161,7 +161,3 @@ cython_debug/
 
 # Visual Studio Code
 .vscode/
-
-# Storage
-files/*
-!files/.gitkeep

@@ -14,6 +14,7 @@ class Settings(BaseSettings):
     ENVIROMENT: str = "production"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24
     SECRET_KEY: str
+    PROFILING: bool = False
 
     MONGO_SERVER: str
     MONGO_USER: str

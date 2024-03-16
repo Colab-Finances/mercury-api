@@ -1,6 +1,6 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
-from fastapi.responses import JSONResponse
+from fastapi.responses import HTMLResponse, JSONResponse
 from starlette.middleware.cors import CORSMiddleware
 
 from apps.planner.backend.config import settings
@@ -22,6 +22,22 @@ if settings.BACKEND_CORS_ORIGINS:
         allow_methods=["*"],
         allow_headers=["*"],
     )
+
+if settings.PROFILING and settings.ENVIROMENT != "production":
+    from pyinstrument import Profiler
+
+    @app.middleware("http")
+    async def profile_request(request: Request, call_next):
+        profiling = request.query_params.get("profile", False)
+        if profiling:
+            profiler = Profiler(async_mode="enabled")
+            profiler.start()
+            await call_next(request)
+            profiler.stop()
+            return HTMLResponse(profiler.output_html())
+        else:
+            return await call_next(request)
+
 
 app.include_router(router, prefix=settings.API_PREFIX)
 

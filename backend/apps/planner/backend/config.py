@@ -10,6 +10,7 @@ class Settings(BaseSettings):
     API_PREFIX: str = "/api"
     PROJECT_NAME: str = "Financial Planner"
     BASE_DIR: str = path.dirname(path.dirname(__file__))
+    PROFILING: bool = False
 
     # BACKEND_CORS_ORIGINS is a JSON-formatted list of origins
     # e.g: '["http://localhost", "http://localhost:4200", "http://localhost:3000"]'
