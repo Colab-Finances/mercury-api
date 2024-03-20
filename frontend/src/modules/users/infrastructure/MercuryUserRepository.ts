@@ -14,7 +14,7 @@ export class MercuryUserRepository implements UserRepository {
       },
       body: JSON.stringify(data),
     })
-    if (!response.ok) return
+    if (!response.ok) throw new DomainError('API Error')
 
     const json = await response.json()
     console.log(json)
