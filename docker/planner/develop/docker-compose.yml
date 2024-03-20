@@ -1,6 +1,17 @@
 version: "3.8"
 
 services:
+  planner:
+    build:
+      context: ./ # We need run this from the root of the project
+      dockerfile: ./docker/planner/develop/react/Dockerfile
+    volumes:
+      - ./frontend:/usr/src/app
+    ports:
+      - 5173:5173
+    depends_on:
+      - planner_api
+
   planner_api:
     dns:
       - 8.8.8.8
