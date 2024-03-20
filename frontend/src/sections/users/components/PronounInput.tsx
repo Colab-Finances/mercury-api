@@ -6,6 +6,7 @@ import {
   Stack,
 } from '@chakra-ui/react'
 import { UseFormRegister } from 'react-hook-form'
+import { Pronoun } from '../../../modules/users/domain/User'
 
 export function PronounInput({
   register,
@@ -18,12 +19,11 @@ export function PronounInput({
     <FormControl id="pronoun" isInvalid={!!error}>
       <RadioGroup>
         <Stack direction="row">
-          <Radio {...register('pronoun')} value="he">
-            He
-          </Radio>
-          <Radio {...register('pronoun')} value="she">
-            She
-          </Radio>
+          {Object.values(Pronoun).map((pronoun) => (
+            <Radio {...register('pronoun')} key={pronoun} value={pronoun}>
+              {pronoun}
+            </Radio>
+          ))}
         </Stack>
       </RadioGroup>
       {error && <FormErrorMessage>{error.message}</FormErrorMessage>}

@@ -3,7 +3,7 @@ import { User } from '../domain/User'
 import { v4 as uuidv4 } from 'uuid'
 export type RegisterData = {
   name: string
-  last_name: string
+  lastName: string
   email: string
   password: string
   pronoun: string

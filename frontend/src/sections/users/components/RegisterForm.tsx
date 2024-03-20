@@ -11,7 +11,7 @@ import { MainButton } from '../../shared/components/MainButton'
 import { useRegisterForm } from '../hooks/useRegisterForm'
 import { UserRepository } from '../../../modules/users/domain/UserRepository'
 
-export function RegisterForm(repository: UserRepository) {
+export function RegisterForm({ repository }: { repository: UserRepository }) {
   const { register, submitForm, errors, isSubmitting } =
     useRegisterForm(repository)
 
