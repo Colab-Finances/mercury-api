@@ -10,6 +10,7 @@ export function EmailInput({
 }) {
   return (
     <FormControl id="email" isInvalid={!!error}>
+      <label htmlFor="email">Email</label>
       <Input
         id="email"
         {...register('email', {

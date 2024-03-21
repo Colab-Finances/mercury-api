@@ -1,25 +1,20 @@
 import { UserRepository } from '../../../src/modules/users/domain/UserRepository'
 import { mock } from 'jest-mock-extended'
 import { UserFactory } from '../../modules/users/domain/UserFactory'
-import { render, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import { RegisterForm } from '../../../src/sections/users/components/RegisterForm'
 import React from 'react'
 import userEvent from '@testing-library/user-event'
+import { renderWithContext } from '../router'
 
 const mockRepository = mock<UserRepository>()
 
 describe('UserRegisterForm', () => {
   it('register a new user when form is submitted', async () => {
     const newUser = UserFactory.build()
+    await renderWithContext(() => <RegisterForm repository={mockRepository} />)
 
-    render(<RegisterForm repository={mockRepository} />)
-
-    const button = await screen.findByRole('button', {
-      name: new RegExp('Añadir repositorio', 'i'),
-    })
-    userEvent.click(button)
-
-    const name = screen.getByLabelText(/Name/i)
+    const name = screen.getByLabelText(/First Name/i)
     userEvent.type(name, newUser.name)
 
     const lastName = screen.getByLabelText(/Last Name/i)
@@ -28,7 +23,7 @@ describe('UserRegisterForm', () => {
     const email = screen.getByLabelText(/Email/i)
     userEvent.type(email, newUser.email)
 
-    const password = screen.getByLabelText(/Password/i)
+    const password = screen.getByLabelText(/^Password$/i)
     userEvent.type(password, newUser.password)
 
     const she = screen.getByLabelText(/She/i)

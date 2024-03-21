@@ -1,5 +1,0 @@
-describe('Group of tests', () => {
-  test('should pass', () => {
-    expect(true).toBe(true)
-  })
-})

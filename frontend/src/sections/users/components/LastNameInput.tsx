@@ -10,6 +10,7 @@ export function LastNameInput({
 }) {
   return (
     <FormControl id="last_name" isInvalid={!!error}>
+      <label htmlFor="last_name">Last Name</label>
       <Input
         id="last_name"
         {...register('last_name')}

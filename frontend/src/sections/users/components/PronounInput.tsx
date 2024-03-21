@@ -17,6 +17,7 @@ export function PronounInput({
 }) {
   return (
     <FormControl id="pronoun" isInvalid={!!error}>
+      <label>Pronoun:</label>
       <RadioGroup>
         <Stack direction="row">
           {Object.values(Pronoun).map((pronoun) => (

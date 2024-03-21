@@ -10,6 +10,7 @@ export function NameInput({
 }) {
   return (
     <FormControl id="name" isInvalid={!!error}>
+      <label htmlFor="name">First Name</label>
       <Input id="name" {...register('name')} placeholder="Name" type="text" />
       {error && <FormErrorMessage>{error.message}</FormErrorMessage>}
     </FormControl>
