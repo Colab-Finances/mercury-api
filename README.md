@@ -2,7 +2,6 @@
   🐍🎯 Hexagonal Architecture, DDD & CQRS in Python
 </h1>
 
-
 ## 🙌 Environment Setup
 
 ### 🐳 Needed tools
@@ -53,7 +52,7 @@ src
 |                 │   ├── command.py // A DTO with the data needed by the use case
 |                 │   ├── creator.py // The use case
 |                 │   ├── finder.py // The use case
-|                 │   ├── query_handler.py // Response for handling the query, initialize valueObjects and call the use case. This is the entry point of the application layer, return the response(only with pimitives) 
+|                 │   ├── query_handler.py // Response for handling the query, initialize valueObjects and call the use case. This is the entry point of the application layer, return the response(only with pimitives)
 |                 │   ├── query.py // A DTO with the data needed by the use case
 |                 │   └── responses.py // The response of the query
 |                 ├── domain // Domain Layer
@@ -94,3 +93,8 @@ src
 - [PostgreSQL](https://www.postgresql.org/)
 - [Alembic(To handle SQL Migration)](https://alembic.sqlalchemy.org/en/latest/)
 - [SQLAlchemy(ORM)](https://www.sqlalchemy.org/)
+- [Semantic Release in CI/CD](https://github.com/go-semantic-release/action)
+
+### Conventions
+
+- [Angular Commit Message Conventions](https://github.com/angular/angular/blob/main/CONTRIBUTING.md#-commit-message-format)

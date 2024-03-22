@@ -3,13 +3,21 @@ name: Run Tests
 on: [workflow_call]
 
 jobs:
-  tests:
-    name: Run Tests
+  backend_tests:
+    name: Run Backend Test Cases
     runs-on: ubuntu-latest
     steps:
-      -
-        name: Checkout
-        uses: actions/checkout@v3
-      -
-        name: Run Tests
-        run: ./init.sh -e test run --rm planner_api
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Run Tests
+        run: ./init.sh -e test run --rm planner_api /test.sh
+
+  frontend_tests:
+    name: Run Frontend Test Cases
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Unit Tests
+        run: ./init.sh -e test run --rm planner

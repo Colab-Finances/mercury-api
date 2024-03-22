@@ -1,0 +1,20 @@
+name: Versioning
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: go-semantic-release/action@v1
+        id: sversion
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          update-file: package.json
+          changelog-generator-opt: "emojis=true"
+          prerelease: true
+          force-bump-patch-version: true

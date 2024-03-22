@@ -1,6 +1,11 @@
 version: "3.8"
 
 services:
+  planner:
+    build:
+      context: ./ # We need run this from the root of the project
+      dockerfile: ./docker/planner/test/react/Dockerfile
+
   planner_api:
     dns:
       - 8.8.8.8
@@ -12,6 +17,7 @@ services:
     depends_on:
       - database
       - document_db
+
   database:
     image: postgres:15
     env_file:
