@@ -18,3 +18,6 @@ isort==5.12.0
 # Type checker
 mypy==1.8.0
 types-python-jose
+
+# Monitoring
+pyinstrument==4.6.1

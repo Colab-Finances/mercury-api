@@ -2,7 +2,3 @@
 
 # Dev Tools
 isort==5.12.0
-
-
-# Monitoring
-pyinstrument==4.6.1
