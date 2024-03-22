@@ -13,7 +13,7 @@ export function LastNameInput({
       <label htmlFor="last_name">Last Name</label>
       <Input
         id="last_name"
-        {...register('last_name')}
+        {...register('lastName')}
         placeholder="Last Name"
         type="text"
       />
