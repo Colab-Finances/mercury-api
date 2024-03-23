@@ -1,8 +1,0 @@
-on:
-  pull_request:
-    types: [opened, reopened, synchronize]
-
-jobs:
-  tests:
-    name: Run Tests
-    uses: ./.github/workflows/run-tests.yml
