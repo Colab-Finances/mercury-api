@@ -5,10 +5,6 @@ services:
     build:
       context: ./ # We need run this from the root of the project
       dockerfile: ./docker/planner/test/react/Dockerfile
-      cache_from:
-        - type=gha
-      cache_to:
-        - type=gha,mode=max
 
   planner_api:
     dns:
@@ -16,10 +12,6 @@ services:
     build:
       context: ./ # We need run this from the root of the project
       dockerfile: ./docker/planner/test/fastapi/Dockerfile
-      cache_from:
-        - type=gha
-      cache_to:
-        - type=gha,mode=max
 
     env_file:
       - backend/.env.test
