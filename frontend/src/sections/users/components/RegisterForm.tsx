@@ -14,7 +14,6 @@ import { UserRepository } from '../../../modules/users/domain/UserRepository'
 export function RegisterForm({ repository }: { repository: UserRepository }) {
   const { register, submitForm, errors, isSubmitting } =
     useRegisterForm(repository)
-
   return (
     <Container
       as="form"

@@ -16,12 +16,11 @@ export function useLoginForm(repository: AuthRepository) {
     mode: 'onBlur',
     criteriaMode: 'all',
     defaultValues: {
-      username: 'test@test.test',
-      password: 'Test123',
+      username: '',
+      password: '',
     },
   })
   const navigate = useNavigate()
-
   const onSubmit: SubmitHandler<AuthBasic> = async (data) => {
     try {
       await login(repository)(data)

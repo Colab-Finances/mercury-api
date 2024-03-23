@@ -1,11 +1,4 @@
-import {
-  Alert,
-  AlertIcon,
-  AlertTitle,
-  Button,
-  Center,
-  Container,
-} from '@chakra-ui/react'
+import { Center, Container } from '@chakra-ui/react'
 import { useLoginForm } from '../hooks/useLoginForm'
 import { AuthRepository } from '../../../modules/auth/domain/AuthRepository'
 import { AppImageXL } from '../../shared/components/AppImageXL'
@@ -16,7 +9,7 @@ import { RegisterLink } from './RegisterLink'
 import { AlertError } from '../../shared/components/AlertError'
 import { MainButton } from '../../shared/components/MainButton'
 
-export function LoginForm(repository: AuthRepository) {
+export function LoginForm({ repository }: { repository: AuthRepository }) {
   const { register, submitForm, errors, isSubmitting } =
     useLoginForm(repository)
 

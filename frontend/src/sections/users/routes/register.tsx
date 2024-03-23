@@ -17,7 +17,7 @@ export const Route = createFileRoute('/register')({
 
 function Register() {
   const repository = new MercuryUserRepository()
-  return RegisterForm(repository)
+  return RegisterForm({ repository })
 }
 
 export default Register

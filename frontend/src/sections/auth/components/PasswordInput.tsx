@@ -18,6 +18,7 @@ export function PasswordInput({
 
   return (
     <FormControl id="password">
+      <label htmlFor="password">Password</label>
       <InputGroup>
         <Input
           {...register('password')}

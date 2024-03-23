@@ -10,6 +10,7 @@ export function UsernameInput({
 }) {
   return (
     <FormControl id="username" isInvalid={!!error}>
+      <label htmlFor="username">Email</label>
       <Input
         id="username"
         {...register('username', {
