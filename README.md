@@ -95,6 +95,36 @@ src
 - [SQLAlchemy(ORM)](https://www.sqlalchemy.org/)
 - [Semantic Release in CI/CD](https://github.com/go-semantic-release/action)
 
-### Conventions
+## Conventions
 
-- [Angular Commit Message Conventions](https://github.com/angular/angular/blob/main/CONTRIBUTING.md#-commit-message-format)
+### Coomit Message
+
+We use a sub-[AngularCommitMessageConventions](https://github.com/angular/angular/blob/main/CONTRIBUTING.md#-commit-message-format) that follow the next structure:
+
+```
+<type and emoji>[<ticket>]: <short summary>
+  │                  │             │
+  │                  │             └─⫸ Summary in present tense. Not capitalized. No period at the end.
+  │                  │
+  │                  └─⫸ Ticket Code: The Notion ticket code or the GitHub issue number
+  │
+  │
+  │
+  │
+  │
+  └─⫸ Commit Type: build|ci|docs|feat|fix|perf|refactor|test
+```
+
+The <type> and <summary> fields are mandatory, the (<ticket>) field is optional.
+**Types:**
+The emoji is optional, but it helps to identify the type of commit at a glance. We follow the [Gitmoji](https://gitmoji.dev/) convention.
+The type must be one of the following, becasue we use semantic-release to automate the versioning and release process:
+
+- build: Changes that affect the build system or external dependencies
+- ci: Changes to our CI configuration files and scripts (examples: GithubActions, SauceLabs)
+- docs: Documentation only changes
+- feat: A new feature
+- fix: A bug fix
+- perf: A code change that improves performance
+- refactor: A code change that neither fixes a bug nor adds a feature
+- test: Adding missing tests or correcting existing tests
