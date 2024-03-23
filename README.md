@@ -97,7 +97,7 @@ src
 
 ## Conventions
 
-### Coomit Message
+### Commit Message
 
 We use a sub-[AngularCommitMessageConventions](https://github.com/angular/angular/blob/main/CONTRIBUTING.md#-commit-message-format) that follow the next structure:
 
