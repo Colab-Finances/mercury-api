@@ -17,7 +17,7 @@ export const Route = createFileRoute('/login')({
 })
 
 function Login() {
-  return LoginForm(repository)
+  return LoginForm({ repository })
 }
 
 export default Login

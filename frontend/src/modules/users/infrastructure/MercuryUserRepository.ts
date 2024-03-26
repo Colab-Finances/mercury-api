@@ -12,7 +12,7 @@ export class MercuryUserRepository implements UserRepository {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify({ ...data, last_name: data.lastName }),
     })
     if (!response.ok) throw new DomainError('API Error')
 

@@ -11,7 +11,7 @@ const mockRepository = mock<UserRepository>()
 
 describe('UserRegisterForm', () => {
   it('register a new user when form is submitted', async () => {
-    const newUser = UserFactory.build({ pronoun: 'she' })
+    const newUser = UserFactory.build()
     await renderWithContext(() => <RegisterForm repository={mockRepository} />)
 
     const name = screen.getByRole('textbox', { name: /First Name/i })
@@ -26,8 +26,10 @@ describe('UserRegisterForm', () => {
     const password = screen.getByLabelText(/^Password$/i)
     await userEvent.type(password, newUser.password)
 
-    const she = screen.getByLabelText(/She/i)
-    await userEvent.click(she)
+    const pronoun = screen.getByLabelText(
+      new RegExp(`^${newUser.pronoun}$`, 'i'),
+    )
+    await userEvent.click(pronoun)
 
     const submitButton = await screen.findByRole('button', {
       name: /Register/i,

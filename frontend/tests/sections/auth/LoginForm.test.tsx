@@ -36,4 +36,12 @@ describe('LoginForm', () => {
       expect(mockRepository.save).toHaveBeenCalledWith(credential)
     })
   })
+
+  it('Show link to register', async () => {
+    await renderWithContext(() => <LoginForm repository={mockRepository} />)
+
+    const registerLink = screen.getByRole('link', { name: /Register/i })
+    expect(registerLink).toBeInTheDocument()
+    expect(registerLink).toHaveAttribute('href', '/register')
+  })
 })
